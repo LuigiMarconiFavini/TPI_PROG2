@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<!--
+  Este es el documento HTML principal para la página de "Registro de Usuario".
+  Aquí defino la estructura de la interfaz donde los nuevos usuarios pueden
+  crear una cuenta en el sitio.
+-->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Usuario</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="icon" href="{{ url_for('static', filename='img/icono_fav.ico') }}" type="image/x-icon" />
+</head>
+
+<body>
+  <header>
+    <div class="frutas-animadas"></div>
+    <div class="logo-title">
+      <img src="{{ url_for('static', filename='img/icono.png') }}" alt="Logo de la empresa">
+      <h1 class="empresa-nombre">
+        Fruta
+        <svg class="letra-arbol" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 100" width="28" height="40">
+          <g class="animar-arbol">
+            <circle cx="32" cy="20" r="30" fill="#4CAF50"/>
+            <circle cx="22" cy="28" r="12" fill="#66BB6A"/>
+            <circle cx="42" cy="28" r="12" fill="#66BB6A"/>
+            <rect x="28" y="40" width="8" height="50" rx="2" fill="#000000"/>
+          </g>
+        </svg>
+        es del Norte
+      </h1>
+    </div>
+
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
+    </div>
+  </header>
+
+    <nav>
+        <a href="{{ url_for('index') }}">Inicio</a>
+        <a href="{{ url_for('productos') }}">Productos</a>
+        {% if not current_user.is_authenticated or current_user.rol != 'admin' %}
+            <a href="{{ url_for('contactos') }}">Contacto</a>
+        {% endif %}
+        {% if current_user.is_authenticated %}
+            {% if current_user.rol == 'admin' %}
+                <a href="{{ url_for('admin_page') }}">Administración</a>
+            {% else %}
+                <a href="{{ url_for('carrito') }}">Carrito</a>
+                <a href="{{ url_for('mis_pedidos') }}">Mis Pedidos</a>
+            {% endif %}
+            <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('registro') }}">Registro</a>
+        {% endif %}
+    </nav>
+
+  <main class="main-container">
+    <form id="registroForm" novalidate>
+      <h2>
+        <svg class="letra-arbol" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 100" width="30" height="40" style="vertical-align:middle; margin-right:8px;">
+          <g class="animar-arbol">
+            <circle cx="32" cy="20" r="30" fill="#4CAF50"/>
+            <circle cx="22" cy="28" r="12" fill="#66BB6A"/>
+            <circle cx="42" cy="28" r="12" fill="#66BB6A"/>
+            <rect x="28" y="40" width="8" height="50" rx="2" fill="#000000"/>
+          </g>
+        </svg>
+        Registro de Usuario
+      </h2>
+
+      <div class="form-group">
+        <label for="nombre">Nombre completo:</label><br>
+        <input type="text" id="nombre" name="nombre" required>
+        <div class="error" id="nombreError"></div>
+      </div>
+      <br>
+
+      <div class="form-group">
+        <label for="email">Correo electrónico:</label><br>
+        <input type="email" id="email" name="email" required>
+        <div class="error" id="emailError"></div>
+      </div>
+      <br>
+
+      <div class="form-group">
+        <label for="password">Contraseña:</label><br>
+        <input type="password" id="password" name="password" required>
+        <div class="error" id="passwordError"></div>
+      </div>
+      <br>
+
+      <div class="form-group">
+        <label for="confirmar">Confirmar contraseña:</label><br>
+        <input type="password" id="confirmar" name="confirmar" required>
+        <div class="error" id="confirmarError"></div>
+      </div>
+      <br>
+
+      <button type="submit">Registrarse</button>
+      <br><br>
+      <div id="formMessages"></div>
+    </form>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Frutales del Norte. Todos los derechos reservados.</p>
+    <p>Dirección: Zeballos 1341, Rosario - Santa Fe - Tel: (0341) 5555-1234</p>
+    <p>Email: contacto@frutalesdelnorte.com.ar</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/registro.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/frutasCayendo.js') }}" defer></script>
+</body>
+
+</html>

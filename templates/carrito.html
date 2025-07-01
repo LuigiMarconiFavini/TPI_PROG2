@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<!--
+    Este es el documento HTML principal para la página del "Carrito de pedido".
+    Aquí defino la estructura de la interfaz donde los usuarios pueden ver y gestionar
+    los productos que agregaron a su carrito antes de finalizar la compra.
+-->
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Carrito de pedido - Frutales del Norte</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="icon" href="{{ url_for('static', filename='img/icono_fav.ico') }}" type="image/x-icon">
+</head>
+
+<body>
+    <header>
+        <!--
+            Esta es la cabecera de mi sitio web.
+            Contiene el logo, el nombre de la empresa y los íconos de redes sociales.
+        -->
+        <div class="frutas-animadas"></div>
+        <div class="logo-title">
+            <img src="{{ url_for('static', filename='img/icono.png') }}" alt="Logo de la empresa">
+            <h1 class="empresa-nombre">
+                Fruta
+                <svg class="letra-arbol" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 100" width="28" height="40">
+                    <g class="animar-arbol">
+                        <!-- Grupo para aplicar la animación de viento a las partes del árbol. -->
+                        <circle cx="32" cy="20" r="30" fill="#4CAF50"/>
+                        <circle cx="22" cy="28" r="12" fill="#66BB6A"/>
+                        <circle cx="42" cy="28" r="12" fill="#66BB6A"/>
+                        <rect x="28" y="40" width="8" height="50" rx="2" fill="#000000"/>
+                    </g>
+                </svg>
+                es del Norte
+            </h1>
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+    </header>
+
+    <nav>
+        <a href="{{ url_for('index') }}">Inicio</a>
+        <a href="{{ url_for('productos') }}">Productos</a>
+        {% if not current_user.is_authenticated or current_user.rol != 'admin' %}
+
+            <a href="{{ url_for('contactos') }}">Contacto</a>
+        {% endif %}
+        {% if current_user.is_authenticated %}
+            {% if current_user.rol == 'admin' %}
+                <a href="{{ url_for('admin_page') }}">Administración</a>
+            {% else %}
+                <a href="{{ url_for('carrito') }}">Carrito</a>
+                <a href="{{ url_for('mis_pedidos') }}">Mis Pedidos</a>
+            {% endif %}
+            <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('registro') }}">Registro</a>
+        {% endif %}
+    </nav>
+
+    <main class="main-container">
+        <!--
+            Este es el contenido principal de mi página del carrito.
+            Está envuelto en un div con la clase 'main-container' para aplicar estilos generales.
+        -->
+        <h2>Tu Carrito</h2>
+        <div id="carritoItems">
+        </div>
+        <div class="carrito-total" id="totalCarrito">
+            Total: $0.00
+        </div>
+        <br>
+        <button id="btn-comprar">Comprar</button>
+        <button id="btn-limpiar" class="secondary">Vaciar carrito</button>
+    </main>
+
+    <footer>
+        <!-- El pie de página de mi sitio web, con información de derechos de autor y contacto. -->
+        <p>&copy; 2025 Frutales del Norte. Todos los derechos reservados.</p>
+        <p>Dirección: Zeballos 1341, Rosario - Santa Fe - Tel: (0341) 5555-1234</p>
+        <p>Email: contacto@frutalesdelnorte.com.ar</p>
+    </footer>
+
+    <div id="loginModal" class="modal">
+
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Debes iniciar sesión para comprar</h2>
+            <p>Por favor, inicia sesión o regístrate para continuar con tu pedido.</p>
+            <div class="modal-buttons">
+                <button id="modalLoginBtn" class="primary">Iniciar Sesión</button>
+                <button id="modalRegisterBtn" class="secondary">Registrarse</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/carrito.js') }}" defer></script>
+
+    <script src="{{ url_for('static', filename='js/frutasCayendo.js') }}" defer></script>
+</body>
+
+</html>

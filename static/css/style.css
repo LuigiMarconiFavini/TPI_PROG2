@@ -1,0 +1,917 @@
+
+/* === RESET BÁSICO === */
+/*
+ * Reinicia los márgenes y paddings predeterminados de los navegadores para todos los elementos.
+ * Utiliza box-sizing: border-box para que el padding y el borde se incluyan en el ancho/alto total de los elementos.
+ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*
+ * Estilos base para el cuerpo del documento (body).
+ * Define la fuente predeterminada, altura de línea, color de fondo y color de texto.
+ * Configura el body como un contenedor flex para ocupar al menos el 100% del alto de la ventana,
+ * permitiendo que el footer se fije en la parte inferior.
+ */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #dbd8d8; /* Color de fondo general de la página */
+    color: #333; /* Color de texto principal */
+    display: flex;
+    flex-direction: column; /* Organiza los elementos hijos en columna */
+    min-height: 100vh; /* Asegura que el body ocupe al menos el alto completo de la ventana */
+}
+
+/*
+ * Permite que el contenido principal (main) ocupe el espacio disponible,
+ * empujando el footer hacia abajo.
+ */
+main {
+    flex-grow: 1; /* Permite que el elemento crezca y ocupe el espacio disponible */
+    width: 100%; /* Asegura que ocupe todo el ancho */
+}
+
+/* === LAYOUT GENERAL - COMPONENTES ESTRUCTURALES === */
+
+/* --- HEADER Y LOGO --- */
+/*
+ * Estilos para el encabezado de la página.
+ * Utiliza flexbox para alinear los elementos (logo y redes sociales) en los extremos.
+ */
+header {
+    display: flex;
+    justify-content: space-between; /* Distribuye el espacio entre los elementos */
+    align-items: center; /* Centra verticalmente los elementos */
+    background-color: #72835f; /* Color de fondo del encabezado */
+    color: white; /* Color de texto general para el encabezado */
+    padding: 12px 20px; /* Espaciado interno */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil en la parte inferior */
+    position: relative; /* Para posicionar elementos internos, como animaciones */
+    overflow: hidden; /* Oculta cualquier contenido que se desborde */
+    z-index: 1; /* Asegura que el encabezado esté por encima de ciertos elementos */
+}
+
+/* Contenedor del logo y el título de la empresa */
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Espacio entre el logo y el texto */
+    position: relative;
+    z-index: 2; /* Asegura que el logo y título estén por encima de animaciones */
+}
+
+/* Estilos para la imagen del logo */
+.logo-title img {
+    max-height: 60px; /* Altura máxima del logo */
+    width: auto; /* Ancho automático para mantener la proporción */
+    object-fit: contain; /* Ajusta la imagen dentro de su contenedor */
+}
+
+/* Nombre de la empresa */
+.empresa-nombre {
+    font-size: 1.8rem; /* Tamaño de fuente */
+    color: #0a130a; /* Color del texto del nombre */
+    font-weight: bold; /* Negrita */
+    font-family: 'Georgia', serif; /* Fuente serif para el nombre */
+    display: flex;
+    align-items: center; /* Alinea verticalmente los elementos internos (letras y árbol) */
+}
+
+/* Estilo para las letras que forman la palabra "árbol" o similar, para animaciones */
+.letra-arbol {
+    display: inline-block; /* Permite transformaciones y alineación */
+    vertical-align: middle; /* Alineación vertical */
+    margin: 0 2px; /* Pequeño margen horizontal */
+}
+
+/* Clase para aplicar la animación de "viento" a las letras del árbol */
+.animar-arbol {
+    transform-origin: bottom center; /* Define el punto de pivote para la rotación (base del árbol) */
+    animation: viento 3s ease-in-out infinite; /* Aplica la animación 'viento' */
+}
+
+/* Definición de la animación de "viento" */
+@keyframes viento {
+    0%   { transform: rotate(0deg); }      /* Inicio: sin rotación */
+    25%  { transform: rotate(-5deg); }     /* Se inclina ligeramente a la izquierda */
+    50%  { transform: rotate(5deg); }      /* Se inclina a la derecha */
+    75%  { transform: rotate(-3deg); }     /* Vuelve a la izquierda ligeramente */
+    100% { transform: rotate(0deg); }      /* Final: vuelve a la posición original */
+}
+
+/* Contenedor de los íconos de redes sociales */
+.social-icons {
+    display: flex;
+    gap: 15px; /* Espacio entre los íconos */
+    align-items: center;
+    position: relative;
+    z-index: 2; /* Asegura que los íconos estén por encima de animaciones */
+}
+
+/* Enlaces de los íconos de redes sociales */
+.social-icons a {
+    text-decoration: none; /* Elimina el subrayado */
+    color: rgb(2, 2, 2); /* Color del ícono (casi negro) */
+    font-size: 24px; /* Tamaño del ícono */
+    transition: color 0.3s; /* Transición suave al cambiar de color */
+}
+
+/* Efecto hover en los íconos de redes sociales */
+.social-icons a:hover {
+    color: #25ad5e; /* Cambia a un color verde al pasar el ratón */
+}
+
+/* --- NAVEGACIÓN --- */
+/* Estilos para la barra de navegación */
+nav {
+    background-color: #0b0b0c; /* Color de fondo oscuro para la barra de navegación */
+    display: flex;
+    justify-content: center; /* Centra los elementos de navegación */
+    gap: 15px; /* Espacio entre los enlaces de navegación */
+    padding: 10px 0; /* Espaciado vertical */
+}
+
+/* Estilos para los enlaces de navegación */
+nav a {
+    color: white; /* Color del texto de los enlaces */
+    text-decoration: none; /* Elimina el subrayado */
+    font-weight: bold; /* Negrita */
+    padding: 8px 16px; /* Espaciado interno para hacer los enlaces más clicables */
+    transition: background-color 0.3s; /* Transición suave al cambiar el color de fondo */
+}
+
+/* Efecto hover en los enlaces de navegación */
+nav a:hover {
+    background-color: #3cbd63; /* Cambia a un color verde al pasar el ratón */
+    border-radius: 5px; /* Bordes redondeados al hacer hover */
+}
+
+/* --- CONTENIDO PRINCIPAL --- */
+/*
+ * Estilos para el contenedor principal de contenido de las páginas.
+ * Define un ancho máximo, centrado automático, padding, fondo, bordes redondeados y sombra.
+ */
+main {
+    max-width: 1300px; /* Ancho máximo del contenido principal */
+    width: 95%; /* Ocupa el 95% del ancho de la ventana hasta el max-width */
+    margin: 20px auto; /* Margen superior/inferior y centrado horizontal automático */
+    padding: 20px; /* Espaciado interno */
+    background-color: rgb(146, 144, 144); /* Color de fondo del área de contenido */
+    border-radius: 8px; /* Bordes ligeramente redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    flex-grow: 1; /* Sobrescribe el estilo general de main para expandirse */
+}
+
+
+/* --- FOOTER --- */
+/* Estilos para el pie de página */
+footer {
+    background-color: #0f0f0f; /* Color de fondo oscuro */
+    color: white; /* Color de texto */
+    text-align: center; /* Centra el texto */
+    padding: 15px; /* Espaciado interno */
+    width: 100%; /* Ocupa todo el ancho */
+    margin-top: 40px; /* Margen superior para separarlo del contenido */
+}
+
+/* === BOTONES GENERALES === */
+/* Estilos base para todos los botones */
+button {
+    background-color: #007BFF; /* Color de fondo azul */
+    color: white; /* Color de texto */
+    border: none; /* Sin borde */
+    padding: 10px 20px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor a una mano */
+    font-weight: bold; /* Negrita */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transiciones suaves */
+}
+
+/* Efecto hover en los botones */
+button:hover {
+    background-color: #0056b3; /* Azul más oscuro al pasar el ratón */
+    transform: scale(1.05); /* Ligeramente más grande al pasar el ratón */
+}
+
+/* Estilos para botones deshabilitados */
+button:disabled {
+    background-color: #ccc; /* Color gris */
+    cursor: not-allowed; /* Cursor de "no permitido" */
+    transform: none; /* Sin efecto de transformación */
+}
+
+/* === INPUTS Y FORMULARIOS === */
+/* Estilos generales para campos de texto, email, password, número, textareas y selects */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea,
+select {
+    padding: 10px; /* Espaciado interno */
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 400px; /* Ancho máximo para estos campos */
+    margin-bottom: 10px; /* Margen inferior */
+    border: 1px solid #ccc; /* Borde delgado gris */
+    border-radius: 4px; /* Bordes ligeramente redondeados */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves para el enfoque */
+}
+
+/* Estilos al enfocar (focus) en los campos de formulario */
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #007BFF; /* Borde azul brillante al enfocar */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Sombra azul suave al enfocar */
+    outline: none; /* Elimina el contorno predeterminado del navegador */
+}
+
+/* Contenedor para agrupar elementos de formulario */
+.form-group {
+    margin-bottom: 15px; /* Margen inferior para separar grupos */
+}
+
+/* Estilos para mensajes de error */
+.error {
+    color: #d93025; /* Color rojo */
+    font-size: 0.9em; /* Fuente ligeramente más pequeña */
+    margin-top: 4px; /* Margen superior */
+}
+
+/* Estilos para mensajes de éxito */
+.success {
+    color: #1e8e3e; /* Color verde */
+    font-weight: bold; /* Negrita */
+}
+
+/* Contenedor para mensajes de formulario (se muestra/oculta con JS) */
+#formMessages {
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    display: none; /* Oculto por defecto, se mostrará con JavaScript */
+}
+
+/* Estilos para mensajes de éxito dentro de #formMessages */
+#formMessages.success {
+    background-color: #e6f4ea; /* Fondo verde claro */
+    border: 1px solid #c6e4d0; /* Borde verde */
+    color: #1e8e3e; /* Texto verde */
+    display: block; /* Muestra el mensaje */
+}
+
+/* Estilos para mensajes de error dentro de #formMessages */
+#formMessages.error {
+    background-color: #fce8e6; /* Fondo rojo claro */
+    border: 1px solid #f6d1cd; /* Borde rojo */
+    color: #d93025; /* Texto rojo */
+    display: block; /* Muestra el mensaje */
+}
+
+/* === PÁGINAS ESPECÍFICAS Y COMPONENTES === */
+
+/* --- LOGIN Y REGISTRO --- */
+/* Estilos para los formularios de login y registro */
+#loginForm, #registroForm {
+    background-color: #ffffffcc; /* Fondo blanco semitransparente */
+    max-width: 400px; /* Ancho máximo */
+    margin: 40px auto; /* Centrado horizontal con margen superior/inferior */
+    padding: 30px 25px; /* Espaciado interno */
+    border-radius: 15px; /* Bordes más redondeados */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+    border: 1px solid #ddd; /* Borde sutil */
+}
+
+/* --- PÁGINA DE PRODUCTOS --- */
+/* Encabezados de la página de productos y secciones generales */
+.productos-page h1, .seccion h2 {
+    text-align: center; /* Centra el texto */
+    margin: 20px 0; /* Margen superior e inferior */
+}
+
+/* Contenedor de la cuadrícula de productos */
+.productos {
+    display: grid; /* Utiliza CSS Grid para el layout */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Columnas responsivas */
+    gap: 1.5rem; /* Espacio entre los productos */
+    padding: 1rem; /* Espaciado interno */
+}
+
+/* Estilos para cada tarjeta de producto individual */
+.producto {
+    background-color: white; /* Fondo blanco */
+    border: 1px solid #ddd; /* Borde sutil */
+    padding: 1rem; /* Espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+    text-align: center; /* Centra el texto */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Sombra ligera */
+    display: flex; /* Utiliza flexbox para organizar el contenido interno */
+    flex-direction: column; /* Organiza los elementos internos en columna */
+    justify-content: space-between; /* Distribuye el espacio para empujar el precio/botón al final */
+}
+
+/* Imágenes de los productos */
+.producto img {
+    width: 100%; /* Ocupa todo el ancho de la tarjeta */
+    height: 200px; /* Altura fija para las imágenes */
+    object-fit: cover; /* Recorta la imagen para que cubra el espacio */
+    border-radius: 8px; /* Bordes redondeados */
+}
+
+/* Títulos de los productos */
+.producto h3 {
+    margin: 0.75em 0 0.5em; /* Margen superior e inferior */
+}
+
+/* Descripciones o texto de los productos */
+.producto p {
+    font-size: 0.95em; /* Fuente ligeramente más pequeña */
+    color: #555; /* Color de texto gris */
+    margin-bottom: 0.5em; /* Margen inferior */
+}
+
+/* Precios de los productos */
+.producto h4 {
+    font-size: 1.2em; /* Tamaño de fuente del precio */
+    color: #333; /* Color de texto oscuro */
+    margin-top: auto; /* Empuja el precio al fondo de la tarjeta si el contenido varía */
+    padding-top: 1em; /* Espaciado superior para el precio */
+}
+
+/* Botón "Agregar al carrito" */
+.producto button.agregar-carrito {
+    margin-top: 1em; /* Margen superior */
+    background-color: green; /* Color de fondo verde */
+}
+
+/* Efecto hover en el botón "Agregar al carrito" */
+.producto button.agregar-carrito:hover {
+    background-color: darkgreen; /* Verde más oscuro al pasar el ratón */
+}
+
+/* --- CARRITO DE COMPRAS --- */
+/* Contenedor principal del carrito */
+.carrito-container {
+    max-width: 900px; /* Ancho máximo para el carrito */
+}
+
+/* Estilos para cada item individual en el carrito */
+.carrito-item {
+    display: flex;
+    align-items: center; /* Centra verticalmente los elementos */
+    justify-content: space-between; /* Distribuye el espacio entre los elementos */
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+    border-bottom: 1px solid #ddd; /* Separador entre items */
+    padding: 15px 0; /* Espaciado vertical */
+    gap: 15px; /* Espacio entre los elementos del item */
+}
+
+/* Imágenes de los productos en el carrito */
+.carrito-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* Detalles del producto en el carrito (nombre, precio, etc.) */
+.carrito-detalles {
+    flex: 1; /* Permite que ocupe el espacio disponible */
+    min-width: 150px; /* Ancho mínimo antes de envolverse */
+}
+
+/* Campo de entrada para la cantidad en el carrito */
+.cantidad-input {
+    width: 60px; /* Ancho fijo */
+    padding: 5px; /* Espaciado interno */
+    text-align: center; /* Centra el texto del número */
+}
+
+/* Total del carrito */
+.carrito-total {
+    text-align: right; /* Alinea el texto a la derecha */
+    font-weight: bold; /* Negrita */
+    margin-top: 20px; /* Margen superior */
+    font-size: 1.2em; /* Tamaño de fuente */
+}
+
+/* Botones de eliminar item y limpiar carrito */
+.btn-eliminar, #btn-limpiar {
+    background-color: crimson; /* Color rojo oscuro */
+}
+
+/* Efecto hover en botones de eliminar y limpiar */
+.btn-eliminar:hover, #btn-limpiar:hover {
+    background-color: darkred; /* Rojo más oscuro al pasar el ratón */
+}
+
+/* Botón de comprar en el carrito */
+#btn-comprar {
+    margin-right: 10px; /* Margen a la derecha */
+}
+
+/* --- MODAL (Usado en Carrito y posiblemente en otras partes) --- */
+/* Contenedor del modal (fondo oscuro, oculto por defecto) */
+.modal {
+    display: none; /* Oculto por defecto, se muestra con JS */
+    position: fixed; /* Posición fija en la ventana */
+    z-index: 1000; /* Asegura que esté por encima de todo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Permite desplazamiento si el contenido es grande */
+    background-color: rgba(0,0,0,0.6); /* Fondo semi-transparente oscuro */
+    justify-content: center; /* Centra el contenido del modal horizontalmente */
+    align-items: center; /* Centra el contenido del modal verticalmente */
+}
+
+/* Contenido interno del modal */
+.modal-content {
+    background-color: #fefefe; /* Fondo blanco */
+    padding: 30px; /* Espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+    width: 90%; /* Ancho del 90% del modal */
+    max-width: 500px; /* Ancho máximo del modal */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Sombra prominente */
+    text-align: center; /* Centra el texto interno */
+    position: relative; /* Para posicionar el botón de cerrar */
+    animation: fadeIn 0.3s ease-out; /* Animación de aparición */
+}
+
+/* Animación de entrada para el modal */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); } /* Empieza invisible y ligeramente arriba */
+    to { opacity: 1; transform: translateY(0); } /* Termina visible y en su posición */
+}
+
+/* Botón de cerrar el modal */
+.close-button {
+    color: #aaa; /* Color gris */
+    position: absolute; /* Posición absoluta respecto al modal-content */
+    top: 10px;
+    right: 15px;
+    font-size: 28px; /* Tamaño del icono */
+    font-weight: bold; /* Negrita */
+    cursor: pointer; /* Cambia el cursor a una mano */
+}
+
+/* Efecto hover en el botón de cerrar */
+.close-button:hover, .close-button:focus {
+    color: #000; /* Cambia a negro al pasar el ratón o enfocar */
+}
+
+/* Contenedor de botones dentro del modal */
+.modal-buttons button {
+    margin: 10px; /* Margen alrededor de los botones */
+}
+
+/* Estilo para botón primario en modal */
+.modal-buttons .primary { background-color: #007BFF; }
+.modal-buttons .primary:hover { background-color: #0056b3; }
+/* Estilo para botón secundario en modal */
+.modal-buttons .secondary { background-color: #6c757d; }
+.modal-buttons .secondary:hover { background-color: #5a6268; }
+
+/* --- PÁGINA CONTACTO --- */
+/* Contenedor para el formulario de contacto y el mapa */
+.contenedor-form-mapa {
+    display: flex; /* Utiliza flexbox */
+    gap: 30px; /* Espacio entre los elementos */
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan */
+    align-items: flex-start; /* Alinea los elementos al inicio */
+}
+
+/* Formulario dentro de la página de contacto */
+.contenedor-form-mapa form {
+    flex: 2; /* Ocupa el doble de espacio que el mapa */
+    min-width: 300px; /* Ancho mínimo */
+}
+
+/* Mapa dentro de la página de contacto */
+.contenedor-form-mapa .mapa {
+    flex: 1; /* Ocupa un espacio */
+    min-width: 300px; /* Ancho mínimo */
+    height: 450px; /* Altura fija para el mapa */
+}
+
+/* --- PÁGINA MIS PEDIDOS --- */
+/* Contenedor principal para la lista de pedidos */
+.pedidos-container {
+    max-width: 900px; /* Ancho máximo */
+}
+
+/* Estilos para cada item de pedido individual */
+.pedido-item {
+    background-color: #f9f9f9; /* Fondo gris claro */
+    margin-bottom: 20px; /* Margen inferior */
+    padding: 20px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra ligera */
+}
+
+/* Encabezado de cada pedido (ID, fecha, total) */
+.pedido-header {
+    display: flex;
+    justify-content: space-between; /* Distribuye el espacio */
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan */
+    align-items: center; /* Centra verticalmente */
+    border-bottom: 1px solid #ccc; /* Separador inferior */
+    padding-bottom: 10px; /* Espaciado inferior del separador */
+    margin-bottom: 10px; /* Margen inferior */
+    gap: 10px; /* Espacio entre elementos del encabezado */
+}
+
+/* Título (ID del pedido) en el encabezado */
+.pedido-header h3 {
+    margin: 0; /* Elimina márgenes predeterminados */
+    color: #3a6b35; /* Color verde */
+}
+
+/* Spans dentro del encabezado (fecha, estado) */
+.pedido-header span {
+    font-weight: bold; /* Negrita */
+    color: #555; /* Color gris */
+}
+
+/* Lista de items dentro de un pedido */
+.pedido-items ul {
+    list-style: none; /* Elimina los marcadores de lista */
+    padding: 0; /* Elimina el padding predeterminado */
+    margin: 0; /* Elimina el margen predeterminado */
+}
+
+/* Cada item individual de producto dentro de un pedido */
+.pedido-items li {
+    padding: 8px 0; /* Espaciado vertical */
+    border-bottom: 1px dashed #eee; /* Borde inferior punteado */
+    display: flex;
+    justify-content: space-between; /* Distribuye el nombre y la cantidad/precio */
+}
+
+/* Elimina el borde inferior del último item de la lista */
+.pedido-items li:last-child {
+    border-bottom: none;
+}
+
+/* Mensaje cuando no hay pedidos */
+.no-pedidos {
+    text-align: center;
+    padding: 20px;
+    font-style: italic; /* Cursiva */
+    color: #666; /* Color gris oscuro */
+}
+
+/* --- PÁGINA DE ADMINISTRACIÓN --- */
+/* Contenedor principal para la página de administración */
+.admin-container {
+    background-color: #f0f2f5; /* Un fondo más claro para la sección de admin */
+}
+
+/* Lista de usuarios en la administración */
+.user-list {
+    list-style: none; /* Elimina marcadores de lista */
+    padding: 0; /* Elimina padding predeterminado */
+}
+
+/* Cada item de usuario en la lista de administración */
+.user-item {
+    background-color: #fff; /* Fondo blanco */
+    margin-bottom: 10px; /* Margen inferior */
+    padding: 15px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    display: flex;
+    justify-content: space-between; /* Distribuye el espacio entre info y controles */
+    align-items: center; /* Centra verticalmente */
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan */
+    gap: 15px; /* Espacio entre elementos */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Sombra ligera */
+}
+
+/* Información del usuario (nombre, email, etc.) */
+.user-info {
+    display: flex;
+    flex-wrap: wrap; /* Permite que la info se envuelva */
+    gap: 15px; /* Espacio entre los detalles */
+    font-size: 0.9em; /* Fuente ligeramente más pequeña */
+}
+
+/* Spans para destacar la información del usuario */
+.user-info span {
+    font-weight: bold; /* Negrita */
+}
+
+/* Controles de rol de usuario */
+.user-role-control {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre el select y el botón */
+}
+
+/* Selector de rol de usuario */
+.user-role-select {
+    padding: 5px;
+    border-radius: 3px;
+}
+
+/* Botón para guardar el rol del usuario */
+.save-role-btn {
+    background-color: #28a745; /* Color verde */
+    padding: 8px 12px; /* Espaciado interno */
+}
+
+/* Efecto hover en el botón de guardar rol */
+.save-role-btn:hover {
+    background-color: #218838; /* Verde más oscuro */
+}
+
+/* Estilo común para botones de eliminar (reutilizable) */
+.delete-btn-common {
+    background-color: crimson; /* Color rojo oscuro */
+    padding: 8px 12px; /* Espaciado interno */
+}
+
+/* Efecto hover en botones de eliminar */
+.delete-btn-common:hover {
+    background-color: darkred; /* Rojo más oscuro */
+}
+
+/* Mensajes de administración (éxito/error, se muestran con JS) */
+.admin-message {
+    margin: 20px 0; /* Margen superior e inferior */
+    padding: 15px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    font-weight: bold; /* Negrita */
+    display: none; /* Oculto por defecto */
+}
+
+/* Estilos para mensaje de éxito de administración */
+.admin-message.success {
+    background-color: #d4edda; /* Fondo verde claro */
+    color: #155724; /* Texto verde oscuro */
+    border: 1px solid #c3e6cb; /* Borde verde */
+    display: block; /* Muestra el mensaje */
+}
+
+/* Estilos para mensaje de error de administración */
+.admin-message.error {
+    background-color: #f8d7da; /* Fondo rojo claro */
+    color: #721c24; /* Texto rojo oscuro */
+    border: 1px solid #f5c6cb; /* Borde rojo */
+    display: block; /* Muestra el mensaje */
+}
+
+/* Contenedor del formulario de productos en la administración */
+.product-form-container {
+    background-color: #fff; /* Fondo blanco */
+    padding: 20px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    margin: 30px 0; /* Margen superior e inferior */
+}
+
+/* Inputs de texto y número dentro del formulario de productos */
+.product-form-container input[type="text"],
+.product-form-container input[type="number"] {
+    width: 100%; /* Ocupa todo el ancho */
+    max-width: none; /* Sin límite de ancho máximo */
+}
+
+/* Panel de Admin - Pedidos */
+/* Estilos específicos para los items de pedido en la vista de administración */
+.pedidos-container-admin .pedido-item {
+    background-color: #ffffff; /* Fondo blanco */
+}
+
+/* Color del título del encabezado del pedido en la vista de administración */
+.pedidos-container-admin .pedido-header h3 {
+    color: #2e7d32; /* Verde más oscuro */
+}
+
+/* === ANIMACIONES Y EFECTOS === */
+/* Contenedor para frutas animadas (probablemente en el encabezado o hero) */
+.frutas-animadas {
+    position: absolute; /* Posición absoluta para flotar sobre el contenido */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Ignora eventos de ratón */
+    z-index: 0; /* En el fondo */
+    overflow: hidden; /* Oculta cualquier fruta que se desborde */
+}
+
+/* Cada elemento de fruta individual */
+.frutas-animadas span {
+    position: absolute;
+    top: -50px; /* Empieza fuera de la vista en la parte superior */
+    font-size: 24px; /* Tamaño de la fruta (probablemente un emoji o carácter) */
+    opacity: 0.7; /* Ligeramente transparente */
+    animation: caer 10s linear infinite; /* Aplica la animación de caída */
+}
+
+/* Definición de la animación de "caída" */
+@keyframes caer {
+    to {
+        transform: translateY(100vh) rotate(360deg); /* Cae 100% del alto de la ventana y rota */
+        opacity: 0; /* Se vuelve invisible al final */
+    }
+}
+
+/* === RESPONSIVE DESIGN === */
+/* Media query para pantallas más pequeñas (teléfonos móviles) */
+@media (max-width: 767px) {
+    /* Encabezado: apila los elementos verticalmente */
+    header {
+        flex-direction: column; /* Cambia la dirección a columna */
+        gap: 15px; /* Espacio entre los elementos apilados */
+        text-align: center; /* Centra el texto */
+    }
+
+    /* Navegación: apila los enlaces verticalmente */
+    nav {
+        flex-direction: column; /* Cambia la dirección a columna */
+        text-align: center; /* Centra los enlaces */
+        gap: 0; /* Elimina el espacio entre enlaces */
+    }
+    /* Añade un borde inferior a cada enlace para separarlos */
+    nav a {
+        padding: 12px;
+        border-bottom: 1px solid #333;
+    }
+    /* Elimina el borde inferior del último enlace para evitar doble borde */
+    nav a:last-child {
+        border-bottom: none;
+    }
+
+    /* Productos: muestra una columna en pantallas pequeñas */
+    .productos {
+        grid-template-columns: 1fr; /* Una sola columna para los productos */
+    }
+
+    /* Contenido principal: reduce el padding en pantallas pequeñas */
+    main {
+        padding: 10px;
+    }
+
+    /*
+     * Nota: Hay una clase `.main-container` definida dentro de este media query
+     * que sobrescribe el estilo de `main`. Asegúrate de usar la clase correcta
+     * o refactorizar si `main` y `.main-container` se refieren al mismo elemento
+     * y tienen estilos diferentes.
+     */
+    .main-container {
+        max-width: 1300px;
+        width: 95%;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: rgb(240, 240, 240); /* Aclaró un poco el gris para que sea más agradable */
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Items de usuario en la administración: apila los elementos */
+    .user-item {
+        flex-direction: column; /* Apila los elementos en columna */
+        align-items: flex-start; /* Alinea los elementos al inicio */
+    }
+}
+
+/* === ESTILOS PARA LA PÁGINA DE INICIO (INDEX.HTML) === */
+
+/* --- Sección Principal de Bienvenida (Hero) --- */
+/*
+ * Contenedor principal del "Hero Section".
+ * Contiene una imagen de fondo y un overlay, con el texto centrado.
+ */
+.hero {
+    position: relative; /* Necesario para posicionar el overlay */
+    color: white; /* Color de texto para el contenido del hero */
+    padding: 100px 20px; /* Espaciado interno */
+    text-align: center; /* Centra el texto */
+    display: flex;
+    justify-content: center; /* Centra horizontalmente el contenido */
+    align-items: center; /* Centra verticalmente el contenido */
+    min-height: 60vh; /* Altura mínima del hero, para que la imagen se aprecie */
+    background-image: url('../img/banner-frutales.webp'); /* Ruta relativa a la imagen de fondo */
+    background-size: cover; /* La imagen cubre todo el espacio del contenedor */
+    background-position: center; /* La imagen se centra en el contenedor */
+}
+
+/* Pseudo-elemento para crear un overlay semitransparente sobre la imagen de fondo */
+.hero::before {
+    content: ''; /* Contenido vacío para el pseudo-elemento */
+    position: absolute; /* Posición absoluta respecto al .hero */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Overlay negro semitransparente */
+    z-index: 1; /* Asegura que el overlay esté entre la imagen y el contenido */
+}
+
+/* Contenido del hero (texto, botón) */
+.hero-content {
+    position: relative; /* Posición relativa para estar por encima del overlay */
+    z-index: 2; /* Asegura que el contenido esté por encima del overlay */
+    max-width: 800px; /* Ancho máximo para el contenido de texto */
+}
+
+/* Título principal dentro del hero */
+.hero h2 {
+    font-size: 2.5rem; /* Tamaño de fuente */
+    margin-bottom: 20px; /* Margen inferior */
+}
+
+/* Párrafo dentro del hero */
+.hero p {
+    font-size: 1.2rem; /* Tamaño de fuente */
+    margin-bottom: 30px; /* Margen inferior */
+}
+
+/* --- Botón Principal (reutilizable) --- */
+.btn-principal {
+    background-color: #3cbd63; /* Color de fondo verde */
+    color: white; /* Color de texto */
+    padding: 15px 30px; /* Espaciado interno */
+    text-decoration: none; /* Elimina el subrayado (es un enlace, no un botón nativo) */
+    font-weight: bold; /* Negrita */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transiciones suaves */
+}
+
+/* Efecto hover en el botón principal */
+.btn-principal:hover {
+    background-color: #2e9950; /* Verde más oscuro al pasar el ratón */
+    transform: scale(1.05); /* Ligeramente más grande */
+}
+
+/* --- Estilo General para Todas las Secciones dentro del <main> (en Index) --- */
+.seccion {
+    padding: 40px 20px; /* Espaciado interno */
+    max-width: 1200px; /* Ancho máximo para el contenido de la sección */
+    margin: 0 auto; /* Centra las secciones en la página */
+    text-align: center; /* Centra el texto de la sección */
+}
+
+/* Títulos de las secciones */
+.seccion h2 {
+    font-size: 2rem; /* Tamaño de fuente */
+    margin-bottom: 30px; /* Margen inferior */
+    color: #333; /* Color de texto oscuro */
+}
+
+/* --- Sección "Destacados" (Variedad, Atención, Envíos) --- */
+/* Contenedor para los elementos destacados */
+.destacados {
+    display: flex; /* Utiliza Flexbox */
+    justify-content: space-around; /* Distribuye el espacio entre los elementos */
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan a la siguiente línea */
+    gap: 20px; /* Espacio entre los elementos destacados */
+}
+
+/* Cada elemento individual destacado */
+.destacado {
+    flex: 1; /* Hace que cada elemento ocupe un espacio igual */
+    min-width: 250px; /* Ancho mínimo antes de que se envuelva */
+    background-color: #fff; /* Fondo blanco */
+    padding: 20px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra ligera */
+}
+
+/* Íconos dentro de los elementos destacados */
+.destacado i {
+    color: #4CAF50; /* Color del ícono verde */
+    margin-bottom: 15px; /* Margen inferior */
+}
+
+/* --- Sección de la Galería de Imágenes --- */
+/* Contenedor de la galería */
+.galeria-imagenes {
+    display: flex; /* Utiliza Flexbox */
+    flex-wrap: wrap; /* Permite que las imágenes se ajusten y envuelvan */
+    justify-content: center; /* Centra las imágenes horizontalmente */
+    gap: 15px; /* Espacio entre las imágenes */
+}
+
+/* Cada imagen individual en la galería */
+.galeria-imagenes img {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 350px; /* Ancho máximo por imagen */
+    height: auto; /* Altura automática para mantener la proporción */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra ligera */
+    object-fit: cover; /* Recorta la imagen para que cubra el espacio */
+    flex-grow: 1; /* Permite que las imágenes crezcan para llenar el espacio */
+}
+
+/* --- Sección final de "Call to Action" (CTA) --- */
+.cta {
+    background-color: #f4f4f4; /* Fondo gris claro */
+    border-radius: 8px; /* Bordes redondeados */
+    margin-top: 20px; /* Margen superior */
+}

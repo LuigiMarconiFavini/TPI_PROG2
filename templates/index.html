@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+  <!--
+    Este es el documento HTML principal para la página de "Inicio" (index.html).
+    Aquí defino la estructura de la interfaz inicial de mi sitio web,
+    incluyendo el encabezado, la barra de navegación, la sección principal de bienvenida (Hero),
+    varias secciones de contenido y el pie de página.
+  -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio - Frutales del Norte</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="icon" href="{{ url_for('static', filename='img/icono_fav.ico') }}" type="image/x-icon"/>
+  </head>
+  <body style="background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);">
+    <!--
+      El 'body' de la página. Aquí defino un gradiente de fondo en línea
+      para un estilo visual atractivo.
+    -->
+    <header>
+      <div class="frutas-animadas"></div>
+      <div class="logo-title">
+        <img src="{{ url_for('static', filename='img/icono.png') }}" alt="Logo de la empresa"/>
+        <h1 class="empresa-nombre">Fruta
+          <svg class="letra-arbol" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 100" width="28" height="40">
+            <g class="animar-arbol">
+              <circle cx="32" cy="20" r="30" fill="#4CAF50" />
+              <circle cx="22" cy="28" r="12" fill="#66BB6A" />
+              <circle cx="42" cy="28" r="12" fill="#66BB6A" />
+              <rect x="28" y="40" width="8" height="50" rx="2" fill="#000000" />
+            </g>
+          </svg>
+          es del Norte</h1>
+      </div>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </header>
+    <nav>
+        <a href="{{ url_for('index') }}">Inicio</a>
+        <a href="{{ url_for('productos') }}">Productos</a>
+        {% if not current_user.is_authenticated or current_user.rol != 'admin' %}
+            <a href="{{ url_for('contactos') }}">Contacto</a>
+        {% endif %}
+        {% if current_user.is_authenticated %}
+            {% if current_user.rol == 'admin' %}
+                <a href="{{ url_for('admin_page') }}">Administración</a>
+            {% else %}
+                <a href="{{ url_for('carrito') }}">Carrito</a>
+                <a href="{{ url_for('mis_pedidos') }}">Mis Pedidos</a>
+            {% endif %}
+            <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('registro') }}">Registro</a>
+        {% endif %}
+    </nav>
+    <section class="hero">
+      <!--
+        Esta es la sección principal de bienvenida (Hero).
+        Está diseñada para captar la atención con un fondo y contenido destacados.
+      -->
+      <div class="hero-content">
+        <!-- Contenido textual y el botón dentro de la sección Hero. -->
+        <h2 style="font-size:2.8rem; text-shadow: 2px 2px 8px #2e7d32;">🌳 Bienvenidos a <span style="color:#3cbd63;">Frutales del Norte</span></h2>
+        <p style="font-size:1.3rem; margin-bottom:35px; text-shadow: 1px 1px 6px #333;">
+          Los mejores árboles frutales para tu jardín, con asesoramiento profesional y envío a todo el país.
+        </p>
+        <a href="{{ url_for('productos') }}" class="btn-principal" style="font-size:1.2rem;">Ver Productos</a>
+      </div>
+    </section>
+    <main>
+      <section class="seccion sobre-nosotros container-sobre_nosotros" style="background:rgba(255,255,255,0.85); border-radius:12px; margin-bottom:30px;">
+        <h2>🌱 Sobre Nosotros</h2>
+        <p style="font-size:1.1rem; max-width:700px; margin:0 auto;">
+          Nos apasiona la agricultura y ofrecemos árboles frutales sanos, resistentes y adaptados al clima argentino. Más de 20 años de experiencia nos respaldan.
+        </p>
+      </section>
+      <section class="seccion destacados" style="gap:30px;">
+        <div class="destacado" style="box-shadow:0 4px 16px rgba(60,189,99,0.08);">
+          <i class="fas fa-seedling fa-2x"></i>
+          <h3>Variedad</h3>
+          <p>Amplia selección de especies frutales: manzanos, perales, duraznos, naranjos y más.</p>
+        </div>
+        <div class="destacado" style="box-shadow:0 4px 16px rgba(60,189,99,0.08);">
+          <i class="fas fa-hand-holding-heart fa-2x"></i>
+          <h3>Atención personalizada</h3>
+          <p>Te ayudamos a elegir el árbol ideal según tu zona y necesidades.</p>
+        </div>
+        <div class="destacado" style="box-shadow:0 4px 16px rgba(60,189,99,0.08);">
+          <i class="fas fa-truck fa-2x"></i>
+          <h3>Envíos seguros</h3>
+          <p>Embalaje especializado para que tus plantas lleguen perfectas.</p>
+        </div>
+      </section>
+      <section class="seccion galeria" style="background:rgba(255,255,255,0.85); border-radius:12px; margin:40px 0;">
+        <h2>📸 Nuestra Producción</h2>
+        <div class="galeria-imagenes" style="gap:25px;">
+          <img src="{{ url_for('static', filename='img/durazno_arbol.jpg') }}" alt="Plantación de duraznos" style="max-width:320px; border:3px solid #3cbd63;"/>
+          <img src="{{ url_for('static', filename='img/mandarina_arbol.jpg') }}" alt="Plantación de mandarinas" style="max-width:320px; border:3px solid #3cbd63;"/>
+          <img src="{{ url_for('static', filename='img/manzana_arbol.jpg') }}" alt="Plantación de manzanas" style="max-width:320px; border:3px solid #3cbd63;"/>
+        </div>
+      </section>
+      <section class="seccion noticias container-noticias" style="background:linear-gradient(90deg,#e8f5e9 60%,#f1f8e9 100%); border-radius:12px; margin-bottom:30px;">
+        <h2>📰 Noticias</h2>
+        <p style="font-size:1.1rem;">¡Nuevas variedades disponibles! Seguimos innovando para vos. Ahora también ofrecemos árboles en maceta.</p>
+      </section>
+      <section class="seccion envios container-envios" style="background:rgba(255,255,255,0.85); border-radius:12px; margin-bottom:30px;">
+        <h2>🚚 Envíos</h2>
+        <p style="font-size:1.1rem;">Enviamos a todo el país. Productos bien embalados y seguros. Elegí envío estándar o exprés.</p>
+      </section>
+      <section class="seccion metodos-pago container-metodos_pago" style="background:linear-gradient(90deg,#f1f8e9 60%,#e8f5e9 100%); border-radius:12px; margin-bottom:30px;">
+        <h2>💳 Métodos de Pago</h2>
+        <p style="font-size:1.1rem;">Tarjetas, transferencias o efectivo. Todo seguro y adaptado a vos.</p>
+      </section>
+      <section class="seccion cta" style="background:linear-gradient(90deg,#3cbd63 60%,#2e9950 100%); color:white; border-radius:12px; margin-bottom:30px;">
+        <h2 style="font-size:2rem;">🌿 ¡Transformá tu jardín hoy!</h2>
+        <p style="font-size:1.1rem;">Visitá nuestra tienda y elegí el árbol perfecto para vos.</p>
+        <a href="{{ url_for('productos') }}" class="btn-principal" style="background:#fff; color:#3cbd63; font-weight:bold;">Explorar Catálogo</a>
+      </section>
+    </main>
+    <footer>
+      <!-- El pie de página de mi sitio web, con información de derechos de autor y contacto. -->
+      <p>&copy; 2025 Frutales del Norte. Todos los derechos reservados.</p>
+      <p>
+        Dirección: Zeballos 1341, Rosario - Santa Fe | Tel: (0341) 5555-1234 |
+        contacto@frutalesdelnorte.com.ar
+      </p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/frutasCayendo.js') }}" defer></script>
+  </body>
+</html>

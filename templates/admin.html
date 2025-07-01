@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<!--
+    Este es el documento HTML principal de la página de administración.
+    Aquí defino la estructura de la interfaz, incluyendo el encabezado,
+    la barra de navegación, el contenido principal con los paneles de gestión
+    (usuarios, productos, pedidos) y el pie de página.
+-->
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administración - Frutales del Norte</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="icon" href="{{ url_for('static', filename='img/icono_fav.ico') }}" type="image/x-icon">
+</head>
+
+<body>
+    <header>
+        <div class="frutas-animadas"></div>
+        <div class="logo-title">
+            <img src="{{ url_for('static', filename='img/icono.png') }}" alt="Logo de la empresa">
+            <h1 class="empresa-nombre">
+                Fruta
+                <svg class="letra-arbol" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 100" width="28" height="40">
+                    <g class="animar-arbol">
+                        <!-- Grupo para aplicar la animación de viento a las partes del árbol. -->
+                        <circle cx="32" cy="20" r="30" fill="#4CAF50"/>
+                        <circle cx="22" cy="28" r="12" fill="#66BB6A"/>
+                        <circle cx="42" cy="28" r="12" fill="#66BB6A"/>
+                        <rect x="28" y="40" width="8" height="50" rx="2" fill="#000000"/>
+                    </g>
+                </svg>
+                es del Norte
+            </h1>
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+    </header>
+
+    <nav>
+        <!--
+            Esta es mi barra de navegación principal.
+            Los enlaces cambian dinámicamente según si el usuario está autenticado y cuál es su rol.
+        -->
+        <a href="{{ url_for('index') }}">Inicio</a>
+        <a href="{{ url_for('productos') }}">Productos</a>
+        {% if not current_user.is_authenticated or current_user.rol != 'admin' %}
+            <a href="{{ url_for('contactos') }}">Contacto</a>
+        {% endif %}
+        {% if current_user.is_authenticated %}
+            <!-- Si el usuario está autenticado, muestro opciones específicas según su rol. -->
+            {% if current_user.rol == 'admin' %}
+                <!-- Si es administrador, muestro el enlace a la página de "Administración". -->
+                <a href="{{ url_for('admin_page') }}">Administración</a>
+            {% else %}
+                <!-- Si es un usuario normal (cliente), muestro enlaces a "Carrito" y "Mis Pedidos". -->
+                <a href="{{ url_for('carrito') }}">Carrito</a>
+                <a href="{{ url_for('mis_pedidos') }}">Mis Pedidos</a>
+            {% endif %}
+            <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+            <!-- Siempre muestro la opción de "Cerrar Sesión" si está autenticado. -->
+        {% else %}
+            <!-- Si el usuario no está autenticado, muestro enlaces para "Login" y "Registro". -->
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('registro') }}">Registro</a>
+        {% endif %}
+    </nav>
+
+    <main class="main-container">
+        <h2>Panel de Administración</h2>
+        <div id="adminMessage" class="admin-message"></div>
+        <section>
+            <!-- Sección dedicada a la gestión de usuarios. -->
+            <h3>Gestión de Usuarios</h3>
+            <ul class="user-list">
+                {% for user in users %}
+                <!--
+                    Aquí utilizo un bucle Jinja2 para iterar sobre la variable 'users'
+                    (que me viene desde Flask) y crear un elemento de lista para cada usuario.
+                -->
+                <li class="user-item">
+                    <div class="user-info">
+                        <span>ID: {{ user.id }}</span>
+                        <span>Nombre: {{ user.nombre }}</span>
+                        <span>Email: {{ user.email }}</span>
+                    </div>
+                    <div class="user-role-control">
+                        <label for="role-{{ user.id }}">Rol:</label>
+                        <select id="role-{{ user.id }}" class="user-role-select">
+                            <option value="cliente" {% if user.rol == 'cliente' %}selected{% endif %}>Cliente</option>
+                            <option value="admin" {% if user.rol == 'admin' %}selected{% endif %}>Administrador</option>
+                        </select>
+                        <button class="save-role-btn" data-user-id="{{ user.id }}">Guardar</button>
+                        {% if user.id != current_user.id %}
+                            <!--
+                                Muestro el botón "Eliminar" solo si el usuario no es la cuenta
+                                actualmente logueada (para evitar auto-eliminación).
+                            -->
+                            <button class="delete-btn-common delete-user-btn" data-user-id="{{ user.id }}">Eliminar</button>
+                        {% else %}
+                            <!-- Si es mi propia cuenta, muestro un botón deshabilitado. -->
+                            <button disabled class="delete-btn-common">Tu Cuenta</button>
+                        {% endif %}
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <hr style="margin: 40px 0;">
+        <section>
+            <!-- Sección dedicada a la gestión de productos. -->
+            <h3>Gestión de Productos</h3>
+            <div class="product-form-container">
+                <h4>Agregar/Editar Producto</h4>
+                <form id="productForm" enctype="multipart/form-data">
+                    <input type="hidden" id="productId" name="id">
+                    <div class="form-group">
+                        <label for="productName">Nombre:</label>
+                        <input type="text" id="productName" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productPrice">Precio:</label>
+                        <input type="number" id="productPrice" name="precio" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productStock">Stock:</label>
+                        <input type="number" id="productStock" name="stock" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productImage">Imagen del Producto:</label>
+                        <input type="file" id="productImage" name="imagen" accept="image/png, image/jpeg, image/gif, image/webp">
+                    </div>
+                    <button type="submit" id="saveProductBtn">Guardar Producto</button>
+                    <button type="button" id="clearProductFormBtn" class="secondary">Limpiar</button>
+                </form>
+            </div>
+            <h4>Productos Existentes</h4>
+            <div id="productList" class="productos">
+            </div>
+        </section>
+
+        <hr style="margin: 40px 0;">
+
+        <section class="pedidos-container-admin">
+            <!-- Sección dedicada a la gestión de todos los pedidos de los clientes. -->
+            <h3>Todos los Pedidos de Clientes</h3>
+            <div id="adminOrdersMessage" class="admin-message"></div>
+            <div id="allOrdersList">
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <!-- El pie de página de mi sitio web. -->
+        <p>&copy; 2025 Frutales del Norte. Todos los derechos reservados.</p>
+        <p>Dirección: Zeballos 1341, Rosario - Santa Fe - Tel: (0341) 5555-1234</p>
+        <p>Email: contacto@frutalesdelnorte.com.ar</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/frutasCayendo.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/admin.js') }}" defer></script>
+</body>
+
+</html>
