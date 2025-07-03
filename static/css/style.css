@@ -30,11 +30,11 @@ body {
  * Permite que el contenido principal (main) ocupe el espacio disponible,
  * empujando el footer hacia abajo.
  */
-main {
+ main {
     flex-grow: 1; /* Permite que el elemento crezca y ocupe el espacio disponible */
     width: 100%; /* Asegura que ocupe todo el ancho */
-}
-
+ }   
+ 
 /* === LAYOUT GENERAL - COMPONENTES ESTRUCTURALES === */
 
 /* --- HEADER Y LOGO --- */
@@ -46,7 +46,7 @@ header {
     display: flex;
     justify-content: space-between; /* Distribuye el espacio entre los elementos */
     align-items: center; /* Centra verticalmente los elementos */
-    background-color: #72835f; /* Color de fondo del encabezado */
+    background-color: #3cbd63; /* Color de fondo del encabezado */
     color: white; /* Color de texto general para el encabezado */
     padding: 12px 20px; /* Espaciado interno */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil en la parte inferior */
@@ -122,7 +122,7 @@ header {
 
 /* Efecto hover en los íconos de redes sociales */
 .social-icons a:hover {
-    color: #25ad5e; /* Cambia a un color verde al pasar el ratón */
+    color: #ffffff; /* Cambia a un color verde al pasar el ratón */
 }
 
 /* --- NAVEGACIÓN --- */
@@ -160,7 +160,7 @@ main {
     width: 95%; /* Ocupa el 95% del ancho de la ventana hasta el max-width */
     margin: 20px auto; /* Margen superior/inferior y centrado horizontal automático */
     padding: 20px; /* Espaciado interno */
-    background-color: rgb(146, 144, 144); /* Color de fondo del área de contenido */
+    background-color: rgb(223, 216, 120); /* Color de fondo del área de contenido */
     border-radius: 8px; /* Bordes ligeramente redondeados */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
     flex-grow: 1; /* Sobrescribe el estilo general de main para expandirse */
@@ -365,7 +365,7 @@ select:focus {
     align-items: center; /* Centra verticalmente los elementos */
     justify-content: space-between; /* Distribuye el espacio entre los elementos */
     flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
-    border-bottom: 1px solid #ddd; /* Separador entre items */
+    border-bottom: 1px solid #000000; /* Separador entre items */
     padding: 15px 0; /* Espaciado vertical */
     gap: 15px; /* Espacio entre los elementos del item */
 }
@@ -520,7 +520,7 @@ select:focus {
     justify-content: space-between; /* Distribuye el espacio */
     flex-wrap: wrap; /* Permite que los elementos se envuelvan */
     align-items: center; /* Centra verticalmente */
-    border-bottom: 1px solid #ccc; /* Separador inferior */
+    border-bottom: 1px solid #000000; /* Separador inferior */
     padding-bottom: 10px; /* Espaciado inferior del separador */
     margin-bottom: 10px; /* Margen inferior */
     gap: 10px; /* Espacio entre elementos del encabezado */
@@ -529,7 +529,7 @@ select:focus {
 /* Título (ID del pedido) en el encabezado */
 .pedido-header h3 {
     margin: 0; /* Elimina márgenes predeterminados */
-    color: #3a6b35; /* Color verde */
+    color: #555; /* Color verde */
 }
 
 /* Spans dentro del encabezado (fecha, estado) */
@@ -548,7 +548,7 @@ select:focus {
 /* Cada item individual de producto dentro de un pedido */
 .pedido-items li {
     padding: 8px 0; /* Espaciado vertical */
-    border-bottom: 1px dashed #eee; /* Borde inferior punteado */
+    border-bottom: 1px dashed #494848; /* Borde inferior punteado */
     display: flex;
     justify-content: space-between; /* Distribuye el nombre y la cantidad/precio */
 }
@@ -582,7 +582,7 @@ select:focus {
 .user-item {
     background-color: #fff; /* Fondo blanco */
     margin-bottom: 10px; /* Margen inferior */
-    padding: 15px; /* Espaciado interno */
+    padding: 13px; /* Espaciado interno */
     border-radius: 5px; /* Bordes redondeados */
     display: flex;
     justify-content: space-between; /* Distribuye el espacio entre info y controles */
@@ -910,8 +910,42 @@ select:focus {
 }
 
 /* --- Sección final de "Call to Action" (CTA) --- */
+/* Estilos generales de la sección CTA */
 .cta {
-    background-color: #f4f4f4; /* Fondo gris claro */
-    border-radius: 8px; /* Bordes redondeados */
-    margin-top: 20px; /* Margen superior */
+  background: linear-gradient(90deg, #3cbd63 60%, #2e9950 100%);
+  color: white;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  padding: 40px 20px;
+  text-align: center;
 }
+
+/* Título */
+.cta h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+/* Párrafo */
+.cta p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+/* Botón */
+.cta .btn-principal {
+  display: inline-block;
+  background: #fff;
+  color: #3cbd63;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.cta .btn-principal:hover {
+  background: #2e9950;
+  color: white;
+}
+

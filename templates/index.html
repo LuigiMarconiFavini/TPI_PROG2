@@ -68,6 +68,7 @@
       -->
       <div class="hero-content">
         <!-- Contenido textual y el botón dentro de la sección Hero. -->
+
         <h2 style="font-size:2.8rem; text-shadow: 2px 2px 8px #2e7d32;">🌳 Bienvenidos a <span style="color:#3cbd63;">Frutales del Norte</span></h2>
         <p style="font-size:1.3rem; margin-bottom:35px; text-shadow: 1px 1px 6px #333;">
           Los mejores árboles frutales para tu jardín, con asesoramiento profesional y envío a todo el país.
@@ -99,7 +100,7 @@
           <p>Embalaje especializado para que tus plantas lleguen perfectas.</p>
         </div>
       </section>
-      <section class="seccion galeria" style="background:rgba(255,255,255,0.85); border-radius:12px; margin:40px 0;">
+      <section class="seccion galeria">
         <h2>📸 Nuestra Producción</h2>
         <div class="galeria-imagenes" style="gap:25px;">
           <img src="{{ url_for('static', filename='img/durazno_arbol.jpg') }}" alt="Plantación de duraznos" style="max-width:320px; border:3px solid #3cbd63;"/>
@@ -119,11 +120,12 @@
         <h2>💳 Métodos de Pago</h2>
         <p style="font-size:1.1rem;">Tarjetas, transferencias o efectivo. Todo seguro y adaptado a vos.</p>
       </section>
-      <section class="seccion cta" style="background:linear-gradient(90deg,#3cbd63 60%,#2e9950 100%); color:white; border-radius:12px; margin-bottom:30px;">
-        <h2 style="font-size:2rem;">🌿 ¡Transformá tu jardín hoy!</h2>
-        <p style="font-size:1.1rem;">Visitá nuestra tienda y elegí el árbol perfecto para vos.</p>
-        <a href="{{ url_for('productos') }}" class="btn-principal" style="background:#fff; color:#3cbd63; font-weight:bold;">Explorar Catálogo</a>
+      <section class="seccion cta">
+        <h2>🌿 ¡Transformá tu jardín hoy!</h2>
+        <p>Visitá nuestra tienda y elegí el árbol perfecto para vos.</p>
+        <a href="{{ url_for('productos') }}" class="btn-principal">Explorar Catálogo</a>
       </section>
+
     </main>
     <footer>
       <!-- El pie de página de mi sitio web, con información de derechos de autor y contacto. -->
