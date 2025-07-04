@@ -32,9 +32,12 @@ def _set_sqlite_pragma(dbapi_connection, connection_record):
         cursor.close()
 
 # Cargo las variables de entorno desde el archivo .env (por ejemplo, la URL de la base de datos, la clave secreta).
+# Esto me permite mantener información sensible fuera del código fuente.
 load_dotenv()
 
 # --- Configuración del Logger ---
+# Configuro el sistema de logging para que me ayude a depurar la aplicación.
+# Quiero ver mensajes de depuración (DEBUG) y con un formato que incluya la fecha, nivel y el mensaje.
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # --- 2. Inicialización de la Aplicación Flask ---
@@ -42,10 +45,17 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %
 app = Flask(__name__)
 
 # --- 3. Configuración de la Aplicación ---
+# Defino la ruta base de mi proyecto para construir rutas de archivos relativas.
 basedir = os.path.abspath(os.path.dirname(__file__))
+# Configuro la URI de la base de datos. Primero intento leerla de una variable de entorno 'DATABASE_URL'.
+# Si no está, uso una base de datos SQLite en el mismo directorio del proyecto.
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///' + os.path.join(basedir, 'database.db'))
+# Deshabilito el seguimiento de modificaciones de SQLAlchemy porque consume recursos innecesarios.
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# Defino una clave secreta para la seguridad de las sesiones. La tomo de una variable de entorno 'SECRET_KEY'.
+# Si no está definida, uso una de respaldo.
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'una_clave_secreta_de_respaldo_por_si_falla_el_env')
+# Configuro Flask para que guarde las sesiones en el sistema de archivos del servidor.
 app.config['SESSION_TYPE'] = 'filesystem'
 
 # Inicializo la extensión SQLAlchemy con mi aplicación Flask.
@@ -58,7 +68,9 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 
 # --- 4. Definición de Modelos de la Base de Datos ---
+# Estos son mis modelos de datos, que representan las tablas en la base de datos.
 
+# Modelo para los mensajes del formulario de Contacto.
 class Contacto(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)
