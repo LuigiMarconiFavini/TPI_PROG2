@@ -13,19 +13,32 @@ El proyecto implementa un servidor web con manejo de rutas, renderizado de templ
 - JavaScript
 
 ## 🚀 Instalación
-1. Clonar el repositorio  
+1. Clonar el repositorio
+   
    `git clone https://github.com/LuigiMarconiFavini/TPI_PROG2.git`
-2. Entrar a la carpeta  
+   
+3. Entrar a la carpeta
+   
    `cd TPI_PROG2`
-3. Crear y activar entorno virtual  
+   
+5. Crear y activar entorno virtual
+   
    `python3 -m venv venv`
+   
    `export FLASK_APP=app.py`
+   
    `source venv/bin/activate`
+   
    `flask init-db (solo una vez)`
-4. Ejecutar el proyecto
+   
+7. Ejecutar el proyecto
+   
    `para ejecutar el proyecto es: Python -m flask run`
-5. Instalar dependencias  
+   
+9. Instalar dependencias
+    
    `pip install -r requirements.txt`
 
 ## 💡 Autor
+
 Luigi Marconi Favini  
